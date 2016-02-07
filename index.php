@@ -67,7 +67,7 @@ if (strpos($pof_output, "OpenVPN") !== False) {
     if (strpos($pof_output, "bs64") !== False)
         echo "Block size is 64 bytes long (probably Blowfish), ";
     if (strpos($pof_output, "bs128") !== False)
-        echo "Block size is 64 bytes long (probably AES), ";
+        echo "Block size is 128 bytes long (probably AES), ";
     if (strpos($pof_output, "SHA1") !== False)
         echo "MAC is SHA1";
     if (strpos($pof_output, "SHA256") !== False)
